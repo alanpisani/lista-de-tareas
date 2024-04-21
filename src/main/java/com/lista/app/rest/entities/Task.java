@@ -16,8 +16,8 @@ public class Task {
     private Long id;
     @Column(name="descripcion")
     private String description;
-    @Column(name="completada", columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean complete;
+    @Column(name="completada")
+    private Boolean complete ;
     /*@ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference

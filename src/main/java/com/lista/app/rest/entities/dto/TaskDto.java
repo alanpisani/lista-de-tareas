@@ -10,6 +10,6 @@ import lombok.*;
 public class TaskDto {
     private Long id;
     private String description;
-    private boolean complete;
+    private Boolean complete;
     //private User user;
 }

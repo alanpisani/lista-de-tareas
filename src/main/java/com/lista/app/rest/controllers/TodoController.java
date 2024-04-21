@@ -1,6 +1,7 @@
 package com.lista.app.rest.controllers;
 
 import com.lista.app.rest.entities.dto.TaskDto;
+import com.lista.app.rest.exceptions.TaskNotFoundException;
 import com.lista.app.rest.servicies.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,14 @@ public class TodoController {
     public TodoController(TodoService service) { this.service = service; }
     @GetMapping
     public ResponseEntity<List<TaskDto>> getTasks(){
-        if (!service.getTasks().isEmpty() && service.getTasks() != null){
-            return ResponseEntity.ok(service.getTasks());
-        }
-        return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(service.getTasks());
+
     }
     @GetMapping("{id}")
-    public ResponseEntity<TaskDto> getTaskById(@PathVariable Long id){
-        return ResponseEntity.ok(service.getTaskById(id));
+    public ResponseEntity<?> getTaskById(@PathVariable Long id){
+        try {return ResponseEntity.ok(service.getTaskById(id));}
+        catch (TaskNotFoundException e) {return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());}
     }
     @PostMapping
     public ResponseEntity<TaskDto> saveTask(@RequestBody TaskDto dto){
@@ -32,11 +33,20 @@ public class TodoController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<String> updateTaskById(@PathVariable Long id, @RequestBody TaskDto dto){
-        return ResponseEntity.status(HttpStatus.OK).body(service.updateTaskById(id, dto));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.updateTaskById(id, dto));
+        }
+        catch(TaskNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteTaskById(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(service.deleteTaskById(id));
+        //return ResponseEntity.status(HttpStatus.OK).body(service.deleteTaskById(id));
+        try {
+            return  ResponseEntity.status(HttpStatus.OK).body(service.deleteTaskById(id));
+        }
+        catch (TaskNotFoundException e) {return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());}
     }
 }

@@ -1,5 +1,6 @@
 package com.lista.app.rest.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,9 +19,9 @@ public class Task {
     private String description;
     @Column(name="completada")
     private Boolean complete ;
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
-    private User user;*/
+    private UserEntity user;
 
 }

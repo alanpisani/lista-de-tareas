@@ -1,10 +1,13 @@
-/*package com.lista.app.rest.repositories;
+package com.lista.app.rest.repositories;
 
-import com.lista.app.rest.entities.User;
+import com.lista.app.rest.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository <User, Long>{
-    Optional<User> findByUsername(String username);
-}*/
+@Repository
+public interface UserRepository extends JpaRepository <UserEntity, Long>{
+    Optional<UserEntity> findUserEntityByUsername(String username);
+
+}

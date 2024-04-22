@@ -1,10 +1,13 @@
-/*package com.lista.app.rest.controllers;
+package com.lista.app.rest.controllers;
 
 import com.lista.app.rest.entities.Task;
+import com.lista.app.rest.entities.dto.TaskDto;
 import com.lista.app.rest.entities.dto.UserDto;
-import com.lista.app.rest.servicies.UserService;
+import com.lista.app.rest.servicies.UserEntityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -12,12 +15,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
-    private final UserService service;
-    public UserController(UserService service){
+@PreAuthorize("denyAll()")
+public class UserEntityController {
+    private final UserEntityService service;
+    public UserEntityController(UserEntityService service){
         this.service = service;
     }
     @GetMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<UserDto>> getUsers(){
         if (!service.getUsers().isEmpty() && service.getUsers() != null){
             return ResponseEntity.status(HttpStatus.OK).body(service.getUsers());
@@ -25,23 +30,41 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
     @GetMapping("/{id}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(service.getUserById(id));
     }
     @GetMapping("/{id}/tasks")
+    @PreAuthorize("permitAll()")
     public ResponseEntity <List<Task>> getUserTasks(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(service.getUserTasks(id));
     }
     @PostMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<UserDto> postUser(@RequestBody UserDto dto){
         return ResponseEntity.status(HttpStatus.OK).body(service.saveUser(dto));
     }
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<UserDto> putUser(@RequestBody UserDto dto, @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(service.putUser(dto, id));
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<String> deleteUserById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(service.deleteUserById(id));
     }
-}*/
+
+
+    @GetMapping("/me")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<String> getCurrentUser(){
+        return ResponseEntity.ok(service.getCurrentUser());
+    }
+
+    @PostMapping("/me")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<String> addTaskToUser(@RequestBody TaskDto dto, Authentication auth){
+        return ResponseEntity.ok(service.addTaskToUser(dto, auth));
+    }
+}

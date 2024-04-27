@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     //POST A TASK
     function addTask(){
-        fetch('http://localhost:8080/tasks', {
+        fetch('http://localhost:8080/users/me', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 //GET ALL TASK
 function getAllTasks(){
-    fetch(`http://localhost:8080/tasks`)
+    fetch(`http://localhost:8080/users/me/tasks`)
       .then(response => {
         if (response.status === 204) {
           return []

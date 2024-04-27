@@ -8,6 +8,9 @@ import com.lista.app.rest.mappers.TaskMapper;
 import com.lista.app.rest.mappers.UserMapper;
 import com.lista.app.rest.repositories.TodoRepository;
 import com.lista.app.rest.repositories.UserRepository;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,10 +31,6 @@ public class UserEntityService {
                 .map(UserMapper::userToDto)
                 .collect(Collectors.toList());
     }
-    public List<Task> getUserTasks(Long userId){
-        UserEntity user = userRepository.findById(userId).get();
-        return user.getTasks();
-    }
     public UserDto getUserById(Long id){
         return UserMapper.userToDto(userRepository.findById(id).get());
     }
@@ -40,8 +39,8 @@ public class UserEntityService {
         dto.setAccountNoLocked(true);
         dto.setCredentialNoExpired(true);
         dto.setIsEnable(true);
-        userRepository.save(UserMapper.dtoToUser(dto));
-        return dto;
+        UserEntity savedUser = userRepository.save(UserMapper.dtoToUser(dto));
+        return UserMapper.userToDto(savedUser);
     }
     public UserDto putUser(UserDto dto, Long id){
         UserEntity userToModify = userRepository.findById(id).get();
@@ -72,19 +71,16 @@ public class UserEntityService {
 
         // Verifica si el usuario está autenticado
         if (authentication != null && authentication.isAuthenticated()) {
+
             // Obtiene el nombre de usuario del objeto Authentication
             String username = authentication.getName();
-
-            // Aquí podrías obtener más atributos del usuario, como roles, autorizaciones, etc.
-            // También puedes devolver un objeto UserDto con todos los atributos del usuario
-
-            // Devuelve los atributos del usuario
             return "Usuario logueado: " + username;
-        } else {
+
+        }else {
             return "Ningún usuario autenticado";
         }
     }
-
+//
     public String addTaskToUser(TaskDto taskDto, Authentication auth){
         UserEntity user = userRepository.findUserEntityByUsername(auth.getName()).get();
         Task task = TaskMapper.dtoToTask(taskDto);
@@ -95,4 +91,11 @@ public class UserEntityService {
 
         return "Tarea añadida exitosamente para el usuario " + auth.getName();
     }
+    public List<TaskDto> getUserTasks(Authentication auth){
+        UserEntity user = userRepository.findUserEntityByUsername(auth.getName()).get();
+        return user.getTasks().stream()
+                .map(TaskMapper::taskToDto)
+                .collect(Collectors.toList());
+    }
+
 }

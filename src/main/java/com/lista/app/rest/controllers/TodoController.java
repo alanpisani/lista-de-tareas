@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
-@CrossOrigin(origins = "http://127.0.0.1:8080")
+//@CrossOrigin(origins = "http://127.0.0.1:8080")
 public class TodoController {
     private final TodoService service;
 

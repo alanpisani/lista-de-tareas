@@ -19,8 +19,8 @@ document.getElementById("registrationForm").addEventListener("submit", function(
     })
     .then(data => {
         // Maneja la respuesta del backend
-        alert('Usuario registrado:', data.username);
-        window.location.href = "/acceder.html";
+        alert(`Usuario registrado: ${data.username}`);
+        window.location.href = "/acceder";
         // Puedes redirigir a otra página o mostrar un mensaje de éxito
     })
     .catch(error => {

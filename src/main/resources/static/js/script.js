@@ -1,3 +1,6 @@
+const $headerUser = document.querySelector("#header-username");
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const $formulario = document.querySelector("#formulario")
     const $inputTarea = document.querySelector("#input-tarea")
@@ -149,3 +152,4 @@ function tacharTarea(taskId, complete, e){
     }
 }
 getAllTasks()
+

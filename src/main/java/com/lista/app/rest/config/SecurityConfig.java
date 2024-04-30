@@ -18,7 +18,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -26,18 +25,19 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("registro.html").permitAll()
+                        .requestMatchers("/registro").permitAll()
                         .requestMatchers("/users/register").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/js/**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
                 .formLogin(form -> form
-                        .loginPage("/acceder.html")
+                        .loginPage("/acceder").permitAll()
                         .loginProcessingUrl("/loginprocess")
-                        .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/acceder.html").permitAll()
+                        .logoutSuccessUrl("/index.html").permitAll()
                 )
                 .build();
     }

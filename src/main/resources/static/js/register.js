@@ -20,11 +20,10 @@ document.getElementById("registrationForm").addEventListener("submit", function(
     .then(data => {
         // Maneja la respuesta del backend
         alert(`Usuario registrado: ${data.username}`);
-        window.location.href = "/acceder";
+        window.location.href = "/todo";
         // Puedes redirigir a otra página o mostrar un mensaje de éxito
     })
     .catch(error => {
         console.error('Error:', error);
-        // Puedes mostrar un mensaje de error al usuario
     });
 });

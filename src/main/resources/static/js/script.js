@@ -61,10 +61,8 @@ function getAllTasks(){
                   let taskHtml = `<tr>
                                       <td>${index}</td>
                                       <td id="tarea" class="${task.complete == true ? 'tachar' : ''}">${task.description}</td>
-                                      <td id = "completado" hidden>${task.complete}</td>
-                                      <td id = "tarea-id" hidden>${task.id}</td>
                                       <td><a id = "tachar" onclick="tacharTarea(${task.id}, '${task.complete}', event)"
-                                      class="btn btn-sm btn-block btn-info">Tachar</a></td>
+                                        class="btn btn-sm btn-block btn-info">Tachar</a></td>
                                       <td><a href="#" onclick="borrarTarea('${task.description}', ${task.id}, event)"
                                       class="btn btn-sm btn-block btn-danger">Eliminar</a></td>
                                   </tr>`;
@@ -143,12 +141,15 @@ function putTask(bool, taskId){
 }
 function tacharTarea(taskId, complete, e){
     const tarea = e.target.closest('tr').querySelector("#tarea");
+    const btnTachar = e.target.closest('tr').querySelector("#tachar");
     if (!tarea.classList.contains("tachar")){
         putTask(true, taskId)
         tarea.classList.add("tachar")
+        btnTachar.textContent = "Destachar"
     }else{
         putTask(false, taskId)
         tarea.classList.remove("tachar")
+        btnTachar.textContent = "Tachar"
     }
 }
 getAllTasks()

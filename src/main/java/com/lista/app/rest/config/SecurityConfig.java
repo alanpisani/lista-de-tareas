@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/acceder").permitAll()
                         .loginProcessingUrl("/loginprocess")
+                        .defaultSuccessUrl("/todo")
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/index.html").permitAll()

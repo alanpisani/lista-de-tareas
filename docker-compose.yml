@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   app_todo:
@@ -8,14 +8,15 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:mysql://dbtodo:3306/lista-de-tareas?createDatabaseIfNotExist=true&serverTimezone=UTC
-      DB_USER: root
+      DB_HOST: dbtodo
+      DB_NAME: lista-de-tareas?createDatabaseIfNotExist=true&serverTimezone=UTC
       DB_PASSWORD: Meteor93!
+      DB_PORT: 3306
+      DB_USER: root
     restart: always
     depends_on:
       dbtodo:
         condition: service_healthy
-
   dbtodo:
     image: mysql:8.0
     ports:
@@ -23,7 +24,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Meteor93!
       MYSQL_DATABASE: lista-de-tareas
-    restart: always
+      MYSQL_PASSWORD: Meteor93!
+    restart: on-failure
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1" ]
       interval: 30s

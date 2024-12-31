@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:mysql://dbtodo:3306/lista-de-tareas
+      DB_URL: jdbc:mysql://dbtodo:3306/lista-de-tareas?createDatabaseIfNotExist=true&serverTimezone=UTC
       DB_USER: root
       DB_PASSWORD: Meteor93!
     restart: always
@@ -26,6 +26,6 @@ services:
     restart: always
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1" ]
-      interval: 30s   # Intervalo de espera más largo
-      timeout: 10s    # Mayor tiempo de espera
-      retries: 5      # Más intentos antes de marcarlo como no saludable
+      interval: 30s
+      timeout: 10s
+      retries: 5

@@ -1,6 +1,7 @@
 package com.lista.app.rest.config;
 
 import com.lista.app.rest.servicies.UserDetailsServiceImpl;
+import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,6 +60,15 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("DB_HOST: " + System.getenv("DB_HOST"));
+        System.out.println("DB_PORT: " + System.getenv("DB_PORT"));
+        System.out.println("DB_NAME: " + System.getenv("DB_NAME"));
+        System.out.println("DB_USER: " + System.getenv("DB_USER"));
+        System.out.println("DB_PASSWORD: " + System.getenv("DB_PASSWORD"));
     }
 
 

@@ -10,7 +10,7 @@ services:
       - "8080:8080"
     environment:
       DB_HOST: dbtodo
-      DB_NAME: lista-de-tareas?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_NAME: lista-de-tareas
       DB_PASSWORD: Meteor93!
       DB_PORT: 3306
       DB_USER: root

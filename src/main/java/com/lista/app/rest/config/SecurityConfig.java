@@ -62,14 +62,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @PostConstruct
-    public void init() {
-        System.out.println("DB_HOST: " + System.getenv("DB_HOST"));
-        System.out.println("DB_PORT: " + System.getenv("DB_PORT"));
-        System.out.println("DB_NAME: " + System.getenv("DB_NAME"));
-        System.out.println("DB_USER: " + System.getenv("DB_USER"));
-        System.out.println("DB_PASSWORD: " + System.getenv("DB_PASSWORD"));
-    }
-
-
 }

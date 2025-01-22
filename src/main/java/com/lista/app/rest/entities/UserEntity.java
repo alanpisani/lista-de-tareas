@@ -3,8 +3,7 @@ package com.lista.app.rest.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,9 +30,9 @@ public class UserEntity {
     @Column
     private String email;
     @Column(name = "fecha_creacion")
-    private LocalDateTime created_at;
+    private Timestamp created_at;
     @Column(name = "fecha_modificacion")
-    private LocalDateTime modified_at;
+    private Timestamp modified_at;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;

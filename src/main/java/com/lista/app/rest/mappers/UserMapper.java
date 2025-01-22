@@ -3,7 +3,7 @@ package com.lista.app.rest.mappers;
 import com.lista.app.rest.entities.UserEntity;
 import com.lista.app.rest.entities.dto.UserDto;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class UserMapper {
     public static UserEntity dtoToUser(UserDto dto){
@@ -14,8 +14,8 @@ public class UserMapper {
                 .name(dto.getName())
                 .surname(dto.getSurname())
                 .email(dto.getEmail())
-                .created_at(LocalDateTime.now())
-                .modified_at(LocalDateTime.now())
+                .created_at(new Timestamp(System.currentTimeMillis()))
+                .modified_at(new Timestamp(System.currentTimeMillis()))
                 .tasks(dto.getTasks())
                 .accountNoExpired(dto.getAccountNoExpired())
                 .accountNoLocked(dto.getAccountNoLocked())

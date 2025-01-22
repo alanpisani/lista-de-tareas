@@ -8,15 +8,12 @@ import com.lista.app.rest.mappers.TaskMapper;
 import com.lista.app.rest.mappers.UserMapper;
 import com.lista.app.rest.repositories.TodoRepository;
 import com.lista.app.rest.repositories.UserRepository;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +53,7 @@ public class UserEntityService {
         if(dto.getEmail() != null){
             userToModify.setEmail(dto.getEmail());
         }
-        userToModify.setModified_at(LocalDateTime.now());
+        userToModify.setModified_at(new Timestamp(System.currentTimeMillis()));
         UserEntity userModified = userRepository.save(userToModify);
         return UserMapper.userToDto(userModified);
     }

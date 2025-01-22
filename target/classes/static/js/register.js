@@ -1,10 +1,14 @@
+const API_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:8080'
+    : 'https://lista-de-tareas-y8j7.onrender.com';
+
 document.getElementById("registrationForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const formData = new FormData(this); // Obtiene los datos del formulario
 
     // Realiza una solicitud POST al backend
-    fetch('http://localhost:8080/users/register', {
+    fetch(`${API_URL}/users/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

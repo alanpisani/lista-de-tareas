@@ -1,5 +1,7 @@
 const $headerUser = document.querySelector("#header-username");
-
+const API_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:8080'
+    : 'https://lista-de-tareas-y8j7.onrender.com';
 
 document.addEventListener("DOMContentLoaded", () => {
     const $formulario = document.querySelector("#formulario")
@@ -21,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     //POST A TASK
     function addTask(){
-        fetch('http://localhost:8080/users/me', {
+        fetch(`${API_URL}/users/me`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 //GET ALL TASK
 function getAllTasks(){
-    fetch(`http://localhost:8080/users/me/tasks`)
+    fetch(`${API_URL}/users/me/tasks`)
       .then(response => {
         if (response.status === 204) {
           return []
@@ -84,7 +86,7 @@ function getAllTasks(){
 
 //DELETE TASK
 function deleteTask(taskId){
-    fetch(`http://localhost:8080/tasks/${taskId}`, {
+    fetch(`${API_URL}/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -119,7 +121,7 @@ function borrarTarea(description, taskId, e){
     })
 }
 function putTask(bool, taskId){
-    fetch(`http://localhost:8080/tasks/${taskId}`, {
+    fetch(`${API_URL}/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -152,5 +154,5 @@ function tacharTarea(taskId, complete, e){
         btnTachar.textContent = "Tachar"
     }
 }
-getAllTasks()
+getAllTasks();
 

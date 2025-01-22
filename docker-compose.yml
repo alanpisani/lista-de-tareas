@@ -16,9 +16,11 @@ services:
     depends_on:
       dbtodo:
         condition: service_healthy
+    networks:
+      - mynetwork
   dbtodo:
     container_name: dbtodo
-    image: mysql:9.1.0
+    image: mysql:8.2.0
     ports:
       - "3307:3306"
     environment:
@@ -30,3 +32,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge

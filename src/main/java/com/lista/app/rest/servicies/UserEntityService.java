@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +53,7 @@ public class UserEntityService {
         if(dto.getEmail() != null){
             userToModify.setEmail(dto.getEmail());
         }
-        userToModify.setModified_at(new Timestamp(System.currentTimeMillis()));
+        userToModify.setModified_at(new Date());
         UserEntity userModified = userRepository.save(userToModify);
         return UserMapper.userToDto(userModified);
     }

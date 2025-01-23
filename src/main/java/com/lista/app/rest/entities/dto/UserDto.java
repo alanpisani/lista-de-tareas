@@ -4,7 +4,7 @@ import com.lista.app.rest.entities.RoleEntity;
 import com.lista.app.rest.entities.Task;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;;
 
@@ -15,7 +15,7 @@ import java.util.Set;;
 public class UserDto {
     private Long id;
     private String username, password, name, surname, email;
-    private Timestamp created_at, modified_at;
+    private Date created_at, modified_at;
     private List<Task> tasks;
     private Boolean isEnable, accountNoExpired, accountNoLocked, credentialNoExpired;
     private Set<RoleEntity> roles;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,9 +31,11 @@ public class UserEntity {
     @Column
     private String email;
     @Column(name = "fecha_creacion")
-    private Timestamp created_at;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created_at;
     @Column(name = "fecha_modificacion")
-    private Timestamp modified_at;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modified_at;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;

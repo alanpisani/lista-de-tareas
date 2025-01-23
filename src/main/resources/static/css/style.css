@@ -3,6 +3,26 @@ body{
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+nav{
+    display:flex;
+    justify-content: center;
+    gap:1rem;
+    flex-wrap: wrap;
+}
+
+nav a{
+    height:50px;
+    width:200px;
+    line-height: 50px;
+    
+}
+
+@media (max-width: 750px) {
+    nav a{
+        width:150px;
+    }
+}
+
 .tachar{
     color: green !important;
     text-decoration: line-through;
@@ -26,11 +46,26 @@ body{
 }
 
 .titulo{
-    border: 3px pointed yellow;
-    border-radius: 16px;
+    border: 3px solid yellow;
+    border-radius: 10px;
     background-color: black;
     color: yellow;
-    padding-top: 10px;
-    padding-bottom: 30px;
+    padding: 10px;
     
+}
+
+.container-log-btns{
+    display: flex;
+    gap:1rem;
+}
+
+.container-task-btns{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid black;
+}
+
+.logout{
+    margin-right: 10px;
 }

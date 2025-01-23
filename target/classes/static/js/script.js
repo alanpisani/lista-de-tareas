@@ -63,10 +63,10 @@ function getAllTasks(){
                   let taskHtml = `<tr>
                                       <td>${index}</td>
                                       <td id="tarea" class="${task.complete == true ? 'tachar' : ''}">${task.description}</td>
-                                      <td><a id = "tachar" onclick="tacharTarea(${task.id}, '${task.complete}', event)"
+                                        <td><a id = "tachar" onclick="tacharTarea(${task.id}, '${task.complete}', event)"
                                         class="btn btn-sm btn-block btn-info">Tachar</a></td>
-                                      <td><a href="#" onclick="borrarTarea('${task.description}', ${task.id}, event)"
-                                      class="btn btn-sm btn-block btn-danger">Eliminar</a></td>
+                                        <td><a href="#" onclick="borrarTarea('${task.description}', ${task.id}, event)"
+                                        class="btn btn-sm btn-block btn-danger">Eliminar</a></td>
                                   </tr>`;
                   listaTareasHtml += taskHtml;
                   index++;

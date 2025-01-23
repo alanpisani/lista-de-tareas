@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/registro").permitAll()
                         .requestMatchers("/users/register").permitAll()
                         .requestMatchers("/js/**").permitAll()
+                        .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated()
                 )
